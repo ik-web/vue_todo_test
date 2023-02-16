@@ -1,0 +1,23 @@
+@import '@/styles/utils/vars';
+@import '@/styles/utils/mixins';
+
+.form {
+  @include flex_center;
+  gap: 16px;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__input {
+    @include input;
+    width: 300px;
+  }
+
+  &__button {
+    @include mobile {
+      width: 60%;
+    }
+  }
+}

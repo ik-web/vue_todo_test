@@ -1,0 +1,102 @@
+@mixin laptop {
+  @media (max-width: 991px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 575px) {
+    @content;
+  }
+}
+
+@mixin flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex_between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex_end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@mixin input {
+  width: 100%;
+  height: $form_item_size;
+  padding: 0 8px;
+
+  border: 1px solid $color_gray;
+  border-radius: $box_rounded;
+  outline: none;
+
+  transition: $transition_behavior;
+
+  &focus,
+  &:hover {
+    border-color: $color_gray_dark;
+  }
+
+  &::placeholder {
+    color: $color_gray;
+    transition: $transition_behavior;
+  }
+  
+  &:focus.form__input::placeholder,
+  &:hover.form__input::placeholder {
+    color: $color_gray_dark;
+  }
+
+  @include mobile {
+    max-width: 400px;
+    width: 100%;
+  }
+}
+
+@mixin button {
+  flex-shrink: 0;
+  min-width: 100px;
+  padding: $form_item_padding;
+  height: $form_item_size;
+  background: $color_gray;
+  border: none;
+  border-radius: $box_rounded;
+
+  cursor: pointer;
+  transition: all $transition_behavior;
+  
+  &:focus,
+  &:hover {
+    background: $color_gray_light;
+    outline: none;
+  }
+
+  &_red {
+    background: $color_red_dark;
+    color: $color_secondary;
+    
+    &:focus,
+    &:hover {
+      background: $color_red;
+    }
+  }
+}
+
+@mixin icon_button {
+  @include button;
+  min-width: 0;
+  width: $form_item_size;
+}

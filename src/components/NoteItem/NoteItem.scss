@@ -1,0 +1,45 @@
+@import '@/styles/utils/vars';
+@import '@/styles/utils/mixins';
+
+.note {
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  height: 100%;
+
+  background: $color_light;
+  border-radius: $box_rounded;
+  box-shadow: $box_shadow;
+
+  &__header {
+    padding: 12px 0;
+    font-size: 14px;
+    border-radius: $box_rounded $box_rounded 0 0;
+    box-shadow: none;
+  }
+
+  &__button {
+    @include icon_button;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+  }
+
+  &__todoList {
+    position: relative;
+    padding: 12px;
+    cursor: pointer;
+  }
+
+  &__todoListOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 5;
+    
+    cursor: pointer;
+  }
+}

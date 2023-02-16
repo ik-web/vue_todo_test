@@ -1,0 +1,66 @@
+@import '@/styles/utils/vars';
+@import '@/styles/utils/mixins';
+
+.todoItem {
+  position: relative;
+
+  &__inner {
+    @include flex_between;
+    gap: 8px;
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  &__label,
+  &__checkBox {
+    cursor: pointer;
+  }
+
+  &__checkBox {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.editMode {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+
+  background: $color_secondary;
+
+  &__input {
+    @include input;
+  }
+
+  &__buttons {
+    @include flex_center;
+    gap: 12px;
+    padding-left: 12px;
+  }
+
+  &__button {
+    @include icon_button;
+
+    &_ok {
+      padding: 4px;
+    }
+  }
+
+  &_active {
+    @include flex_between;
+  }
+}
+
+.isCompleted {
+  color: $color_gray_dark;
+  text-decoration: line-through;
+}

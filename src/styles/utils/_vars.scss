@@ -1,0 +1,35 @@
+$font_family: Rubik, sans-serif;
+$font_size: 16px;
+$font_size_mobile: 14px;
+$font_heihgt: 1.2rem;
+
+$color_main: #252525;
+$color_secondary: #fff;
+
+$color_normal: #008080;
+$color_dark: #004e4e;
+$color_light: #c2f1f1;
+
+$color_gray: #b3b3b3;
+$color_gray_light: #c9c9c9;
+$color_gray_dark: #707070;
+$color_red: #ff0707;
+$color_red_dark: #9e0000;
+
+$color_overlay: rgba(133, 133, 133, 0.7);
+
+$transition_behavior: 0.15s linear;
+
+$box_rounded: 4px;
+$box_shadow: 2px 2px 4px $color_gray_dark;
+
+$form_item_size: 32px;
+$form_item_padding: $form_item_size / 4;
+
+$bg_header_img: url('@/assets/img/header_bg.webp');
+$bg_header_gradient: linear-gradient(
+    to right,
+    #003030d5,
+    #006464d5,
+    #00acacd8
+  ), $bg_header_img;
