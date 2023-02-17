@@ -1,0 +1,41 @@
+<template>
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <slot></slot>
+      </div>
+    </div>
+  </header>
+</template>
+
+<script setup>
+  import { ref, readonly } from 'vue';
+  const name = ref('app-header')
+  readonly(name);
+</script>
+
+<style lang="scss" scoped>
+  @import '@/styles/utils/vars';
+  @import '@/styles/utils/mixins';
+
+  .header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    
+    padding: 20px 0;
+
+    color: $color_secondary;
+    background-image: $bg_header_gradient;
+    background-position: center;
+    background-size: cover;
+    box-shadow: $box_shadow;
+
+    &__inner {
+      @include flex_between;
+      gap: 16px;
+    }
+  }
+</style>

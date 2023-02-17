@@ -8,13 +8,13 @@
       >
   
       <div class="editMode__buttons">
-        <v-icon-button class="editMode__button_red" @click="deleteTodoItem">
+        <icon-button class="editMode__button_red" @click="deleteTodoItem">
           <img src="@/assets/icon/delete.svg" alt="Delete todo icon">
-        </v-icon-button>
+        </icon-button>
 
-        <v-icon-button class="editMode__button_save" @click="saveTodoQuery">
+        <icon-button class="editMode__button_save" @click="saveTodoQuery">
           <img src="@/assets/icon/save.svg" alt="Delete todo icon">
-        </v-icon-button>
+        </icon-button>
       </div>
     </div>
 
@@ -23,60 +23,62 @@
         <input
           type="checkbox"
           class="todoItem__checkBox"
-          :checked="true"
+          :checked="props.todo.completed"
         />
   
-        <div class="isCompleted">
-          <p :class="isClipped && 'clipped'" >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, numquam.
+        <div :class="props.todo.completed && 'isCompleted'">
+          <p :class="props.isClipped && 'clipped'" >
+            {{ props.todo.name }}
           </p>
         </div>
       </label>
 
-      <v-icon-button
-        v-if="changeButton"
+      <icon-button
+        v-if="props.changeButton"
         class="todoItem__button"
         @click="toggleEditMode"
       >
         <img src="@/assets/icon/edit.svg" alt="Change icon">
-      </v-icon-button>
+      </icon-button>
     </div>
   </article>
 </template>
 
-<script>
-  export default {
-    name: 'TodoItem',
-    props: {
-      changeButton: {
-        type: Boolean
-      },
+<script setup>
+  import { ref,onUpdated } from 'vue';
 
-      isClipped: {
-        type: Boolean
-      }
+  const props = defineProps({
+    todo: {
+      type: Object,
+      required: true
     },
-    data() {
-      return {
-        editMode: false,
-      }
+    changeButton: {
+      type: Boolean
     },
-    methods: {
-      toggleEditMode() {
-        this.editMode = !this.editMode;
 
-        if (this.editMode) {
-          this.$nextTick(() => this.$refs.editInput.focus());
-        }
-      },
-      saveTodoQuery() {
-        console.log('Save todo query');
-        this.toggleEditMode();
-      },
-      deleteTodoItem() {
-        console.log('Delete todo item');
-      }
+    isClipped: {
+      type: Boolean
     }
+  });
+
+  const editMode = ref(false);
+  const editInput = ref();
+
+  const toggleEditMode = () => {
+    editMode.value = !editMode.value;
+
+    if (editMode.value) {
+      onUpdated(() => editInput.value.focus());
+    }
+  }
+
+  const saveTodoQuery = () => {
+    console.log('Save todo query');
+    toggleEditMode();
+  }
+
+  const deleteTodoItem = () => {
+    console.log('Delete todo item');
   };
 </script>
 

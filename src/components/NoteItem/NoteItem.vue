@@ -1,36 +1,42 @@
 <template>
   <article class="note">
-    <v-header class="note__header">
+    <app-header class="note__header">
       <h3 :class="isClipped && 'clipped'">
-        Note item title www www
+        {{ props.note.name }}
       </h3>
 
-      <v-icon-button class="note__button" @click="openDeleteConfirm">
+      <icon-button class="note__button" @click="showDeleteConfirm">
         <img src="@/assets/icon/cross.svg" alt="Delete icon">
-      </v-icon-button>
-    </v-header>
+      </icon-button>
+    </app-header>
     
     <div class="note__todoList">
-      <div class="note__todoListOverlay" @click="$router.push(`/note/${1}`)"></div>
-      <TodosList :isClipped="isClipped" />
+      <div class="note__todoListOverlay" @click="$router.push(`/note/${note.id}`)"></div>
+      <todo-list :isClipped="isClipped" :todos="props.note.todos" />
     </div>
   </article>
 </template>
 
-<script>
-  export default {
-    name: 'NoteItem',
-    props: {
-      isClipped: {
-        type: Boolean
-      }
+<script setup>
+  import { useNotesStore } from '@/stores/notesStore';
+
+  const notesStore = useNotesStore();
+  const { setIsDeleteConfirm, setSelectedNoteId } = notesStore;
+
+  const props = defineProps({
+    note: {
+      type: Object,
+      required: true
     },
-    methods: {
-      openDeleteConfirm() {
-        console.log('Open delete confirm window');
-      }
+    isClipped: {
+      type: Boolean
     }
-  }
+  });
+
+  const showDeleteConfirm = () => {
+    setSelectedNoteId(props.note.id)
+    setIsDeleteConfirm();
+  };
 </script>
 
 <style lang="scss" scoped>

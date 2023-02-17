@@ -1,40 +1,25 @@
 <template>
   <ul class="list">
-    <li class="list__item">
-      <NoteItem :isClipped="isClipped" />
-    </li>
-
-    <li class="list__item">
-      <NoteItem :isClipped="isClipped" />
-    </li>
-
-    <li class="list__item">
-      <NoteItem :isClipped="isClipped" />
-    </li>
-
-    <li class="list__item">
-      <NoteItem :isClipped="isClipped" />
-    </li>
-
-    <li class="list__item">
-      <NoteItem :isClipped="isClipped" />
-    </li>
-
-    <li class="list__item">
-      <NoteItem :isClipped="isClipped" />
+    <li
+      class="list__item"
+      v-for="note of props.notes"
+      :key="note.id"
+    >
+      <note-item :isClipped="isClipped" :note="note" />
     </li>
   </ul>
 </template>
 
-<script>
-  export default {
-    name: 'NotesList',
-    props: {
-      isClipped: {
-        type: Boolean
-      }
+<script setup>
+  const props = defineProps({
+    notes: {
+      type: Array,
+      required: true
+    },
+    isClipped: {
+      type: Boolean
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

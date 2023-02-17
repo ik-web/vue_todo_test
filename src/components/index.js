@@ -1,28 +1,28 @@
-import VModal from '@/components/UI/VModal.vue';
-import VButton from '@/components/UI/VButton.vue';
-import VIconButton from '@/components/UI/VIconButton.vue';
+import AppModal from '@/components/UI/AppModal.vue';
+import AppHeader from '@/components/UI/AppHeader.vue';
+import AppMenu from '@/components/AppMenu/AppMenu.vue';
+import AppButton from '@/components/UI/AppButton.vue';
+import IconButton from '@/components/UI/IconButton.vue';
 
-import VHeader from '@/components/VHeader/VHeader.vue';
-import VMenu from '@/components/VMenu/VMenu.vue';
-import VItemForm from '@/components/VItemForm/VItemForm.vue';
+import ItemForm from '@/components/ItemForm/ItemForm.vue';
 import NotesList from '@/components/NotesList/NotesList.vue';
 import NoteItem from '@/components/NoteItem/NoteItem.vue';
-import TodosList from '@/components//TodosList/TodosList.vue';
+import TodoList from '@/components//TodoList/TodoList.vue';
 import TodoItem from '@/components/TodoItem/TodoItem.vue';
-import VDeleteConfirm from '@/components/VDeleteConfirm/VDeleteConfirm.vue';
+import DeleteConfirm from '@/components/DeleteConfirm/DeleteConfirm.vue';
 
 
 export const components = [
-  VModal,
-  VButton,
-  VIconButton,
-  
-  VHeader,
-  VMenu,
-  VItemForm,
+  AppModal,
+  AppHeader,
+  AppMenu,
+  AppButton,
+  IconButton,
+
+  ItemForm,
   NotesList,
   NoteItem,
-  TodosList,
+  TodoList,
   TodoItem,
-  VDeleteConfirm,
+  DeleteConfirm,
 ];

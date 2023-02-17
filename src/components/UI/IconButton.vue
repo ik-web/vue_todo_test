@@ -1,18 +1,15 @@
 <template>
-  <button :class="color === 'red' ? 'button button_red' : 'button'" >
+  <button :class="props.color === 'red' ? 'button button_red' : 'button'" >
     <slot></slot>
   </button>
 </template>
 
-<script>
-  export default {
-    name: 'v-icon-button',
-    props: {
-      color: {
-        type: String
-      }
+<script setup>
+  const props = defineProps({
+    color: {
+      type: String
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

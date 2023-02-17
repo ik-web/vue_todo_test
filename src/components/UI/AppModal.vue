@@ -6,10 +6,10 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'v-modal'
-  }
+<script setup>
+  import { ref, readonly } from 'vue';
+  const name = ref('app-modal')
+  readonly(name);
 </script>
 
 <style lang="scss" scoped>
