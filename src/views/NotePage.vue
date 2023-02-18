@@ -1,7 +1,7 @@
 <template>
   <delete-confirm v-if="noteIdforDelete" />
   <app-header>
-    <h1>{{ currentNote.name }}</h1>
+    <h1>{{ currentNoteName }}</h1>
 
     <app-button 
       class="note__returnButton" 
@@ -14,11 +14,11 @@
       <section class="note__section">
         <h2 class="title_center">Todo list</h2>
 
-        <item-form itemName="todo" />
+        <item-form itemName="todo" @add="createTodo" />
 
         <todo-list
           :changeButton="true"
-          :todos="currentNote.todos || []"
+          :todos="[]"
         />
 
         <div class="note__buttons">
@@ -42,6 +42,7 @@
 </template>
 
 <script setup>
+  // import { ref, onMounted } from 'vue';
   import { onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { storeToRefs } from 'pinia';
@@ -52,11 +53,11 @@
   const currentNoteId = +route.params.noteId;
 
   const notesStore = useNotesStore();
-  const { noteIdforDelete, currentNote } = storeToRefs(notesStore);
+  const { noteIdforDelete, currentNoteName } = storeToRefs(notesStore);
   const { setNoteIdforDelete, setCurrentNote } = notesStore;
 
   const requestConfirmDelete = () => {
-    setNoteIdforDelete(currentNoteId)
+    setNoteIdforDelete(currentNoteId);
   };
 
   const saveNote = () => {
@@ -67,7 +68,7 @@
   const resetChanges = () => {
     console.log('Reset changes');
   };
-
+  
   onMounted(() => {
     setCurrentNote(currentNoteId);
   });

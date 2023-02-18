@@ -9,7 +9,7 @@
       </app-button>
 
       <app-menu :open="isOpenMenu" @close="closeItemForm">
-        <item-form itemName="note" @add="createNote" />
+        <item-form itemName="note" @add="handleCreateNote" />
       </app-menu>
     </div>
   </app-header>
@@ -27,7 +27,6 @@
   import { useNotesStore } from '@/stores/notesStore';
 
   const notesStore = useNotesStore();
-
   const { notes, noteIdforDelete } = storeToRefs(notesStore);
   const { addNewNote } = notesStore;
   const isOpenMenu = ref(false);
@@ -35,16 +34,8 @@
   const openItemForm = () => isOpenMenu.value = true;
   const closeItemForm = () => isOpenMenu.value = false;
   
-  const createNote = (newNoteQuery) => {
-        const totalNotes = notes.value.length;
-        const newNoteId = totalNotes ? notes.value[totalNotes - 1].id + 1 : 1;
-        const newNote = {
-          id: newNoteId,
-          name: newNoteQuery,
-          todos: []
-        };
-
-        addNewNote(newNote);
+  const handleCreateNote = (newNoteQuery) => {
+        addNewNote(newNoteQuery);
         closeItemForm();
   };
 </script>

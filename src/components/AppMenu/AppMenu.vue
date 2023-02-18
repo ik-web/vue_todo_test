@@ -1,5 +1,9 @@
 <template>
-  <div class="overlay" v-if="props.open" @click="(e) => closeMenu(e)">
+  <div
+    class="overlay"
+    v-if="props.open"
+    @click="(e) => closeMenu(e)"
+  >
     <div class="container">
       <div class="menu" ref="menu">
         <slot></slot>

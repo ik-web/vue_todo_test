@@ -5,6 +5,7 @@
       class="form__input"
       v-model="inputQuery"
       :placeholder="`New ${props.itemName}`"
+      ref="input"
     />
 
     <app-button
@@ -14,24 +15,29 @@
 </template>
 
 <script setup>
-  import { ref, defineEmits } from 'vue';
-
-  const emit = defineEmits(['add']);
-
+  import { ref, defineEmits, onMounted } from 'vue';
+  
   const props = defineProps({
     itemName: {
       type: String,
       required: true
     }
   });
-
+  
+  const input = ref();
+  const emit = defineEmits(['add']);
   const inputQuery = ref('');
 
   const onSubmit = () => {
     if (inputQuery.value.trim()) {
-      emit('add', inputQuery.value);
+      emit('add', inputQuery.value.trim());
+      inputQuery.value = '';
     }
   };
+  
+  onMounted(() => {
+    input.value.focus()
+  })
 </script>
 
 <style lang="scss" scoped>
