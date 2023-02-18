@@ -24,12 +24,13 @@
         <div class="note__buttons">
           <app-button
             class=""
-            @click="resetTodoChanges"
-            :disabled="!currentTodoListWasChanged"
+            @click="resetNoteChanges"
+            :disabled="!isCurrentNoteChanged"
           >reset</app-button>
 
           <app-button
-            @click="saveNote"
+            @click="saveNoteChanges"
+            :disabled="!isCurrentNoteChanged"
           >save</app-button>
 
           <app-button
@@ -43,8 +44,7 @@
 </template>
 
 <script setup>
-  // import { ref, onMounted } from 'vue';
-  import { onMounted } from 'vue';
+  import { onMounted, onUnmounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { storeToRefs } from 'pinia';
   import { useNotesStore } from '@/stores/notesStore';
@@ -59,28 +59,28 @@
     noteIdforDelete,
     currentNoteName,
     currentNoteTodosCopy,
-    currentTodoListWasChanged,
+    isCurrentNoteChanged,
   } = storeToRefs(notesStore);
 
   const {
     setNoteIdforDelete,
     setCurrentNote,
     addNewTodo,
-    resetTodoChanges
+    resetNoteChanges,
+    saveNoteChanges
   } = notesStore;
 
   const requestConfirmDelete = () => {
     setNoteIdforDelete(currentNoteId);
   };
-
-  const saveNote = () => {
-    console.log('Save note item');
-    router.push('/');
-  };
   
   onMounted(() => {
     setCurrentNote(currentNoteId);
   });
+
+  onUnmounted(() => {
+    resetNoteChanges();
+  })
 </script>
 
 <style lang="scss" scoped>

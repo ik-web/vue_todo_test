@@ -11,7 +11,7 @@ export const useNotesStore = defineStore('notesStore', () => {
   const currentNote = ref(null);
   const currentNoteTodosCopy = ref([]);
   const noteIdforDelete = ref(null);
-  const currentTodoListWasChanged = ref(false);
+  const isCurrentNoteChanged = ref(false);
   
   const addNewNote = (newNoteQuery) => {
     const newNote = {
@@ -56,13 +56,20 @@ export const useNotesStore = defineStore('notesStore', () => {
     };
 
     currentNoteTodosCopy.value.push(newTodo);
-    currentTodoListWasChanged.value = true;
+    isCurrentNoteChanged.value = true;
   }
 
-  const resetTodoChanges = () => {
-    if (currentTodoListWasChanged.value) {
+  const resetNoteChanges = () => {
+    if (isCurrentNoteChanged.value) {
       getCurrentNoteTodosCopy();
-      currentTodoListWasChanged.value = false;
+      isCurrentNoteChanged.value = false;
+    }
+  }
+
+  const saveNoteChanges = () => {
+    if (isCurrentNoteChanged.value) {
+      currentNote.value.todos = currentNoteTodosCopy.value;
+      isCurrentNoteChanged.value = false;
     }
   }
 
@@ -76,7 +83,7 @@ export const useNotesStore = defineStore('notesStore', () => {
     noteIdforDelete,
     currentNoteName,
     currentNoteTodosCopy,
-    currentTodoListWasChanged,
+    isCurrentNoteChanged,
 
     addNewNote,
     setNoteIdforDelete,
@@ -84,6 +91,7 @@ export const useNotesStore = defineStore('notesStore', () => {
     cancelDeleteNote,
     setCurrentNote,
     addNewTodo,
-    resetTodoChanges,
+    resetNoteChanges,
+    saveNoteChanges
   }
 });
