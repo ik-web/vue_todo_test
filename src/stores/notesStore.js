@@ -9,6 +9,7 @@ const initialNotes = notesData;
 export const useNotesStore = defineStore('notesStore', () => {
   const notes = ref(initialNotes);
   const currentNote = ref(null);
+  const currentNoteTodosCopy = ref([]);
   const noteIdforDelete = ref(null);
   
   const addNewNote = (newNoteQuery) => {
@@ -38,7 +39,13 @@ export const useNotesStore = defineStore('notesStore', () => {
 
   const setCurrentNote = (id) => {
     currentNote.value = notes.value.find((note) => note.id === id);
-  }
+
+    getCurrentNoteTodosCopy();
+  };
+
+  const getCurrentNoteTodosCopy = () => {
+    currentNoteTodosCopy.value = [...currentNote.value.todos];
+  };
 
   const currentNoteName = computed(() => {
     return currentNote.value?.name;
@@ -49,6 +56,7 @@ export const useNotesStore = defineStore('notesStore', () => {
     currentNote,
     noteIdforDelete,
     currentNoteName,
+    currentNoteTodosCopy,
 
     addNewNote,
     setNoteIdforDelete,

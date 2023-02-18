@@ -18,7 +18,7 @@
 
         <todo-list
           :changeButton="true"
-          :todos="[]"
+          :todos="currentNoteTodosCopy"
         />
 
         <div class="note__buttons">
@@ -53,9 +53,15 @@
   const currentNoteId = +route.params.noteId;
 
   const notesStore = useNotesStore();
-  const { noteIdforDelete, currentNoteName } = storeToRefs(notesStore);
-  const { setNoteIdforDelete, setCurrentNote } = notesStore;
 
+  const { setNoteIdforDelete, setCurrentNote } = notesStore;
+  const {
+    noteIdforDelete,
+    currentNoteName,
+    currentNoteTodosCopy
+  } = storeToRefs(notesStore);
+
+  console.log(currentNoteTodosCopy);
   const requestConfirmDelete = () => {
     setNoteIdforDelete(currentNoteId);
   };
