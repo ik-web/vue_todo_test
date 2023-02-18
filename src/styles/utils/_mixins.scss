@@ -93,6 +93,12 @@
       background: $color_red;
     }
   }
+
+  &:disabled {
+    background: $color_gray_light;
+    color: $color_gray_dark;
+    cursor: not-allowed;
+  }
 }
 
 @mixin icon_button {

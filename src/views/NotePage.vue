@@ -14,7 +14,7 @@
       <section class="note__section">
         <h2 class="title_center">Todo list</h2>
 
-        <item-form itemName="todo" @add="createTodo" />
+        <item-form itemName="todo" @add="addNewTodo" />
 
         <todo-list
           :changeButton="true"
@@ -24,7 +24,8 @@
         <div class="note__buttons">
           <app-button
             class=""
-            @click="resetChanges"
+            @click="resetTodoChanges"
+            :disabled="!currentTodoListWasChanged"
           >reset</app-button>
 
           <app-button
@@ -54,14 +55,20 @@
 
   const notesStore = useNotesStore();
 
-  const { setNoteIdforDelete, setCurrentNote } = notesStore;
   const {
     noteIdforDelete,
     currentNoteName,
-    currentNoteTodosCopy
+    currentNoteTodosCopy,
+    currentTodoListWasChanged,
   } = storeToRefs(notesStore);
 
-  console.log(currentNoteTodosCopy);
+  const {
+    setNoteIdforDelete,
+    setCurrentNote,
+    addNewTodo,
+    resetTodoChanges
+  } = notesStore;
+
   const requestConfirmDelete = () => {
     setNoteIdforDelete(currentNoteId);
   };
@@ -69,10 +76,6 @@
   const saveNote = () => {
     console.log('Save note item');
     router.push('/');
-  };
-
-  const resetChanges = () => {
-    console.log('Reset changes');
   };
   
   onMounted(() => {
