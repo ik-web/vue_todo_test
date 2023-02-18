@@ -27,7 +27,7 @@
   const props = defineProps({
     todos: {
       type: Array,
-      required: true
+      required: true,
     },
     changeButton: {
       type: Boolean

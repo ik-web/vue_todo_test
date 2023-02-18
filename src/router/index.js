@@ -10,7 +10,7 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/note/:noteId',
+    path: '/:noteId',
     name: 'note',
     component: NotePage
   }

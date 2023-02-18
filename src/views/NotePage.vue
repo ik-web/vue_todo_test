@@ -1,7 +1,7 @@
 <template>
-  <delete-confirm v-if="isDeleteConfirm" />
+  <delete-confirm v-if="noteIdforDelete" />
   <app-header>
-    <h1>{{ note.name }}</h1>
+    <h1>{{ currentNote.name }}</h1>
 
     <app-button 
       class="note__returnButton" 
@@ -18,21 +18,21 @@
 
         <todo-list
           :changeButton="true"
-          :todos="note.todos"
+          :todos="currentNote.todos || []"
         />
 
         <div class="note__buttons">
           <app-button
             class=""
-            @click="onReset"
+            @click="resetChanges"
           >reset</app-button>
 
           <app-button
-            @click="onSaveNote"
+            @click="saveNote"
           >save</app-button>
 
           <app-button
-            @click="openDeleteConfirm"
+            @click="requestConfirmDelete"
             color="red"
           >delete</app-button>
         </div>
@@ -42,27 +42,35 @@
 </template>
 
 <script setup>
-  import { useRouter } from 'vue-router';
+  import { onMounted } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
+  import { storeToRefs } from 'pinia';
   import { useNotesStore } from '@/stores/notesStore';
 
   const router = useRouter();
+  const route = useRoute();
+  const currentNoteId = +route.params.noteId;
 
-  const store = useNotesStore();
-  const note = store.getNoteById;
-  const isDeleteConfirm = store.isDeleteConfirm;
+  const notesStore = useNotesStore();
+  const { noteIdforDelete, currentNote } = storeToRefs(notesStore);
+  const { setNoteIdforDelete, setCurrentNote } = notesStore;
 
-  const openDeleteConfirm = () => {
-    store.setIsDeleteConfirm()
+  const requestConfirmDelete = () => {
+    setNoteIdforDelete(currentNoteId)
   };
 
-  const onSaveNote = () => {
+  const saveNote = () => {
     console.log('Save note item');
     router.push('/');
   };
 
-  const onReset = () => {
+  const resetChanges = () => {
     console.log('Reset changes');
   };
+
+  onMounted(() => {
+    setCurrentNote(currentNoteId);
+  });
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <template>
-  <delete-confirm v-if="isDeleteConfirm" />
+  <delete-confirm v-if="noteIdforDelete" />
   <app-header>
     <h1>Notes</h1>
 
@@ -27,9 +27,11 @@
   import { useNotesStore } from '@/stores/notesStore';
 
   const notesStore = useNotesStore();
-  const { notes, isDeleteConfirm } = storeToRefs(notesStore);
+
+  const { notes, noteIdforDelete } = storeToRefs(notesStore);
   const { addNewNote } = notesStore;
   const isOpenMenu = ref(false);
+
   const openItemForm = () => isOpenMenu.value = true;
   const closeItemForm = () => isOpenMenu.value = false;
   
