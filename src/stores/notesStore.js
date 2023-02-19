@@ -2,7 +2,7 @@ import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 
 import { notesData } from '@/data/notesData';
-import { getNewItemId } from './utils';
+import { findItem, getDiplyDataCopy, getNewItemId } from './utils';
 
 const initialNotes = notesData;
 
@@ -40,12 +40,11 @@ export const useNotesStore = defineStore('notesStore', () => {
 
   const setCurrentNote = (id) => {
     currentNote.value = notes.value.find((note) => note.id === id);
-
     getCurrentNoteTodosCopy();
   };
 
   const getCurrentNoteTodosCopy = () => {
-    currentNoteTodosCopy.value = [...currentNote.value.todos];
+    currentNoteTodosCopy.value = getDiplyDataCopy(currentNote.value.todos);
   };
 
   const addNewTodo = (newTodoQuery) => {
@@ -57,21 +56,48 @@ export const useNotesStore = defineStore('notesStore', () => {
 
     currentNoteTodosCopy.value.push(newTodo);
     isCurrentNoteChanged.value = true;
-  }
+  };
 
   const resetNoteChanges = () => {
     if (isCurrentNoteChanged.value) {
       getCurrentNoteTodosCopy();
       isCurrentNoteChanged.value = false;
     }
-  }
+  };
 
   const saveNoteChanges = () => {
     if (isCurrentNoteChanged.value) {
       currentNote.value.todos = currentNoteTodosCopy.value;
       isCurrentNoteChanged.value = false;
+      getCurrentNoteTodosCopy();
     }
-  }
+  };
+
+  const saveTodoQueryChanges = (id, todoQuery) => {
+    const currentTodo = currentNoteTodosCopy.value.find((todo) => todo.id === id);
+
+    if (todoQuery) {
+      currentTodo.name = todoQuery;
+    } else {
+      deleteTodoItem(id);
+    }
+    
+    isCurrentNoteChanged.value = true;
+  };
+
+  const deleteTodoItem = (id) => {
+    currentNoteTodosCopy.value = currentNoteTodosCopy.value
+    .filter((todo) => todo.id !== id);
+
+    isCurrentNoteChanged.value = true;
+  };
+
+  const changeTodoProgress = (id) => {
+    const currentTodo = findItem(id, currentNoteTodosCopy.value);
+    currentTodo.completed = !currentTodo.completed;
+
+    isCurrentNoteChanged.value = true;
+  };
 
   const currentNoteName = computed(() => {
     return currentNote.value?.name;
@@ -92,6 +118,9 @@ export const useNotesStore = defineStore('notesStore', () => {
     setCurrentNote,
     addNewTodo,
     resetNoteChanges,
-    saveNoteChanges
-  }
+    saveNoteChanges,
+    deleteTodoItem,
+    saveTodoQueryChanges,
+    changeTodoProgress
+  };
 });

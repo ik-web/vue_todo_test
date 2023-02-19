@@ -1,19 +1,21 @@
 <template>
   <article class="todoItem">
+    <div :class="editMode && 'editMode__overlay'" @click="deactivatedEditMode"></div>
     <div :class="editMode ? 'editMode editMode_active' : 'editMode'">
       <input
         type="text"
         class="editMode__input"
         ref="editInput"
+        v-model="todoQuery"
       >
   
       <div class="editMode__buttons">
-        <icon-button class="editMode__button_red" @click="deleteTodoItem">
+        <icon-button class="editMode__button_red" @click="handleDeleteTodoItem">
           <img src="@/assets/icon/delete.svg" alt="Delete todo icon">
         </icon-button>
 
-        <icon-button class="editMode__button_save" @click="saveTodoQuery">
-          <img src="@/assets/icon/save.svg" alt="Delete todo icon">
+        <icon-button class="editMode__button_save" @click="handleSaveTodoQueryChanges">
+          <img src="@/assets/icon/save.svg" alt="Save todo icon">
         </icon-button>
       </div>
     </div>
@@ -24,10 +26,11 @@
           type="checkbox"
           class="todoItem__checkBox"
           :checked="props.todo.completed"
+          @change="handleChangeTodoProgress"
         />
   
         <div :class="props.todo.completed && 'isCompleted'">
-          <p :class="props.isClipped && 'clipped'" >
+          <p :class="props.isClipped ? 'todoItem__name clipped' : 'todoItem__name'" >
             {{ props.todo.name }}
           </p>
         </div>
@@ -36,16 +39,17 @@
       <icon-button
         v-if="props.changeButton"
         class="todoItem__button"
-        @click="toggleEditMode"
+        @click="activateEditMode"
       >
-        <img src="@/assets/icon/edit.svg" alt="Change icon">
+        <img src="@/assets/icon/edit.svg" alt="Edit mode icon">
       </icon-button>
     </div>
   </article>
 </template>
 
 <script setup>
-  import { ref,onUpdated } from 'vue';
+  import { ref, onUpdated } from 'vue';
+  import { useNotesStore } from '@/stores/notesStore';
 
   const props = defineProps({
     todo: {
@@ -55,31 +59,52 @@
     changeButton: {
       type: Boolean
     },
-
     isClipped: {
       type: Boolean
     }
   });
 
+  const notesStore = useNotesStore();
+  const {
+    deleteTodoItem,
+    saveTodoQueryChanges,
+    changeTodoProgress
+  } = notesStore;
+
   const editMode = ref(false);
   const editInput = ref();
-
-  const toggleEditMode = () => {
-    editMode.value = !editMode.value;
-
-    if (editMode.value) {
-      onUpdated(() => editInput.value.focus());
-    }
-  }
-
-  const saveTodoQuery = () => {
-    console.log('Save todo query');
-    toggleEditMode();
-  }
-
-  const deleteTodoItem = () => {
-    console.log('Delete todo item');
+  const todoQuery = ref('');
+  
+  const activateEditMode = () => {
+    editMode.value = true;
+    todoQuery.value = props.todo.name;
   };
+
+  const deactivatedEditMode = () => {
+    editMode.value = false;
+  };
+
+  const handleSaveTodoQueryChanges = () => {
+    const newTodoQuery = todoQuery.value.trim();
+
+    if (props.todo.name !== newTodoQuery) {
+      saveTodoQueryChanges(props.todo.id, newTodoQuery);
+    }
+
+    deactivatedEditMode();
+  };
+
+  const handleChangeTodoProgress = () => {
+    changeTodoProgress(props.todo.id);
+  };
+
+  const handleDeleteTodoItem = () => {
+    deleteTodoItem(props.todo.id);
+  };
+  
+  onUpdated(() => {
+    editInput.value.focus();
+  });
 </script>
 
 <style lang="scss" scoped>
