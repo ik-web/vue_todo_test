@@ -6,6 +6,7 @@
       v-model="inputQuery"
       :placeholder="`New ${props.itemName}`"
       ref="input"
+      :maxlength="props.maxlength"
     />
 
     <app-button
@@ -21,6 +22,12 @@
     itemName: {
       type: String,
       required: true
+    },
+    maxlength: {
+      type: String,
+    },
+    isAutoFocus: {
+      type: Boolean
     }
   });
   
@@ -36,8 +43,10 @@
   };
   
   onMounted(() => {
-    input.value.focus()
-  })
+    if (props.isAutoFocus) {
+      input.value.focus();
+    }
+  });
 </script>
 
 <style lang="scss" scoped>

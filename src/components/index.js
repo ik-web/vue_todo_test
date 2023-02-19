@@ -1,7 +1,9 @@
 import AppModal from '@/components/UI/AppModal.vue';
 import AppHeader from '@/components/UI/AppHeader.vue';
-import AppMenu from '@/components/AppMenu/AppMenu.vue';
+import AppMain from '@/components//UI/AppMain.vue';
+import AppMenu from '@/components/UI/AppMenu.vue';
 import AppButton from '@/components/UI/AppButton.vue';
+import AppMessage from '@/components/UI/AppMessage.vue';
 import IconButton from '@/components/UI/IconButton.vue';
 
 import ItemForm from '@/components/ItemForm/ItemForm.vue';
@@ -15,8 +17,10 @@ import DeleteConfirm from '@/components/DeleteConfirm/DeleteConfirm.vue';
 export const components = [
   AppModal,
   AppHeader,
+  AppMain,
   AppMenu,
   AppButton,
+  AppMessage,
   IconButton,
 
   ItemForm,

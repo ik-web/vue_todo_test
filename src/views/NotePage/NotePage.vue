@@ -3,44 +3,49 @@
   <app-header>
     <h1 class="note__name">{{ currentNoteName }}</h1>
 
-    <app-button 
-      class="note__returnButton" 
-      @click="hundleGoBackButtonClick"
-    >Go back</app-button>
+    <app-button @click="hundleGoBackButtonClick">
+      Go back
+    </app-button>
   </app-header>
-    
-  <main class="main">
-    <div class="container">
-      <section class="note__section">
-        <h2 class="title_center">Todo list</h2>
 
-        <item-form itemName="todo" @add="addNewTodo" />
+  <app-main class="note__main">
+    <section class="note__section">
+      <h2 class="title_center">Todo list</h2>
 
-        <todo-list
-          :changeButton="true"
-          :todos="currentNoteTodosCopy"
-        />
+      <item-form
+        itemName="todo"
+        @add="addNewTodo"
+        maxlength="120"
+      />
 
-        <div class="note__buttons">
-          <app-button
-            class=""
-            @click="resetNoteChanges"
-            :disabled="!isCurrentNoteChanged"
-          >reset</app-button>
+      <app-message v-if="!currentNoteTodosCopy.length">
+        Create your first task
+      </app-message>
 
-          <app-button
-            @click="saveNoteChanges"
-            :disabled="!isCurrentNoteChanged"
-          >save</app-button>
+      <todo-list
+        :changeButton="true"
+        :todos="[...currentNoteTodosCopy].reverse()"
+      />
 
-          <app-button
-            @click="requestConfirmDelete"
-            color="red"
-          >delete</app-button>
-        </div>
-      </section>
-    </div>
-  </main>
+      <div class="note__buttons">
+        <app-button
+          class=""
+          @click="resetNoteChanges"
+          :disabled="!isCurrentNoteChanged"
+        >reset</app-button>
+
+        <app-button
+          @click="saveNoteChanges"
+          :disabled="!isCurrentNoteChanged"
+        >save</app-button>
+
+        <app-button
+          @click="requestConfirmDelete"
+          color="red"
+        >delete</app-button>
+      </div>
+    </section>
+  </app-main>
 </template>
 
 <script setup>

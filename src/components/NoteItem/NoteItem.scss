@@ -11,15 +11,27 @@
   border-radius: $box_rounded;
   box-shadow: $box_shadow;
 
+  transition: box-shadow $transition_behavior;
+
+  &:hover {
+    box-shadow: $box_shadow_hover;
+  }
+
   &__header {
-    padding: 12px 0;
+    @include flex_between;
+
+    padding: 12px;
+
     font-size: 14px;
+    color: $color_secondary;
+
+    @include header_bg;
     border-radius: $box_rounded $box_rounded 0 0;
     box-shadow: none;
   }
 
   &__name {
-    word-break: break-all;
+    word-break: break-word;;
   }
 
   &__button {

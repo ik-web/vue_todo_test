@@ -5,7 +5,7 @@
 }
 
 @mixin tablet {
-  @media (max-width: 767px) {
+  @media (max-width: 991px) {
     @content;
   }
 }
@@ -34,6 +34,12 @@
   align-items: center;
 }
 
+@mixin header_bg {
+  background-image: $bg_header_image;
+  background-position: center;
+  background-size: cover;
+}
+
 @mixin input {
   width: 100%;
   height: $form_item_size;
@@ -54,7 +60,7 @@
     color: $color_gray;
     transition: $transition_behavior;
   }
-  
+
   &:focus.form__input::placeholder,
   &:hover.form__input::placeholder {
     color: $color_gray_dark;
@@ -77,7 +83,7 @@
 
   cursor: pointer;
   transition: all $transition_behavior;
-  
+
   &:focus,
   &:hover {
     background: $color_gray_light;
@@ -87,7 +93,7 @@
   &_red {
     background: $color_red_dark;
     color: $color_secondary;
-    
+
     &:focus,
     &:hover {
       background: $color_red;

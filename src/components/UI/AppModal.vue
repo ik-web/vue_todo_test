@@ -8,7 +8,7 @@
 
 <script setup>
   import { ref, readonly } from 'vue';
-  const name = ref('app-modal')
+  const name = ref('app-modal');
   readonly(name);
 </script>
 
@@ -36,5 +36,17 @@
     background: $color_secondary;
     border-radius: 4px;
     box-shadow: $box_shadow;
+
+    animation: showModal $transition_behavior;
+
+    @keyframes showModal{
+      0% {
+        transform: scale(0.01);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
   }
 </style>

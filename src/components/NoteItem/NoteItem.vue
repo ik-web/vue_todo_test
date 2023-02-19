@@ -1,6 +1,6 @@
 <template>
   <article class="note">
-    <app-header class="note__header">
+    <header class="note__header">
       <h3 :class="isClipped ? 'note__name clipped' : 'note__name'">
         {{ props.note.name }}
       </h3>
@@ -8,11 +8,11 @@
       <icon-button class="note__button" @click="requestConfirmDelete">
         <img src="@/assets/icon/cross.svg" alt="Delete icon">
       </icon-button>
-    </app-header>
+    </header>
     
     <div class="note__todoList">
       <div class="note__todoListOverlay" @click="handleTodoListClick"></div>
-      <todo-list :isClipped="isClipped" :todos="props.note.todos" />
+      <todo-list :isClipped="isClipped" :todos="[...props.note.todos].reverse()" />
     </div>
   </article>
 </template>

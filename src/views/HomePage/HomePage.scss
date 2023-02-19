@@ -1,0 +1,31 @@
+@import '@/styles/utils/vars';
+@import '@/styles/utils/mixins';
+
+.home {
+  &__headerLeftBlock {
+    @include flex_between;
+    gap: 4px;
+  }
+
+  &__headerLogo {
+    width: 52px;
+    height: 52px;
+
+    @include mobile {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  &__headerTitle {
+    font-size: 40px;
+
+    @include mobile {
+      font-size: 32px;
+    }
+  }
+
+  &__main {
+    background: url('@/assets/img/home_bg.webp') center / cover no-repeat;
+  }
+}

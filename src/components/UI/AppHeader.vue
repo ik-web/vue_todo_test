@@ -10,7 +10,7 @@
 
 <script setup>
   import { ref, readonly } from 'vue';
-  const name = ref('app-header')
+  const name = ref('app-header');
   readonly(name);
 </script>
 
@@ -19,23 +19,25 @@
   @import '@/styles/utils/mixins';
 
   .header {
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 10;
-    
-    padding: 20px 0;
 
+    @include header_bg;
     color: $color_secondary;
-    background-image: $bg_header_gradient;
-    background-position: center;
-    background-size: cover;
     box-shadow: $box_shadow;
 
     &__inner {
       @include flex_between;
       gap: 16px;
+      min-height: $height_header;
+      padding: 8px 0;
+
+      @include mobile {
+        gap: 12px;
+      }
     }
   }
 </style>

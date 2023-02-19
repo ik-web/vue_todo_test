@@ -10,7 +10,7 @@ $color_normal: #008080;
 $color_dark: #004e4e;
 $color_light: #c2f1f1;
 
-$color_gray: #b3b3b3;
+$color_gray: #a3a3a3;
 $color_gray_light: #c9c9c9;
 $color_gray_dark: #707070;
 $color_red: #ff0707;
@@ -21,15 +21,17 @@ $color_overlay: rgba(133, 133, 133, 0.7);
 $transition_behavior: 0.15s linear;
 
 $box_rounded: 4px;
-$box_shadow: 2px 2px 4px $color_gray_dark;
+$box_shadow: 1px 1px 4px $color_gray;
+$box_shadow_hover: 1px 1px 4px $color_gray_dark;
 
-$form_item_size: 36px;
+$height_header: 80px;
+$padding_main: ($height_header + 40px) 0 40px;
+$form_item_size: 40px;
 $form_item_padding: $form_item_size / 4;
 
-$bg_header_img: url('@/assets/img/header_bg.webp');
-$bg_header_gradient: linear-gradient(
+$bg_header_image: linear-gradient(
     to right,
     #002929e1,
     #004949e7,
     #00acace5
-  ), $bg_header_img;
+  ), url('@/assets/img/header_bg.webp');

@@ -1,7 +1,15 @@
 <template>
   <delete-confirm v-if="noteIdforDelete" />
   <app-header>
-    <h1>Notes</h1>
+    <div class="home__headerLeftBlock">
+      <div class="home__headerLogo">
+        <img src="@/assets/img/logo.png" alt="Logo">
+      </div>
+      
+      <h1 class="home__headerTitle">
+        Notes
+      </h1>
+    </div>
 
     <div>
       <app-button @click="openItemForm">
@@ -9,16 +17,23 @@
       </app-button>
 
       <app-menu :open="isOpenMenu" @close="closeItemForm">
-        <item-form itemName="note" @add="handleCreateNote" />
+        <item-form
+          itemName="note"
+          @add="handleCreateNote"
+          isAutoFocus
+          maxlength="44"
+        />
       </app-menu>
     </div>
   </app-header>
 
-  <main class="main">
-    <div class="container">
-      <notes-list :isClipped="true" :notes="notes" />
-    </div>
-  </main>
+  <app-main class="home__main">
+    <app-message v-if="!notes.length">
+      Create your first note
+    </app-message>
+
+    <notes-list :isClipped="true" :notes="[...notes].reverse()" />
+  </app-main>
 </template>
 
 <script setup>
@@ -40,4 +55,6 @@
   };
 </script>
 
-<style scoped></style>
+<style  lang="scss" scoped>
+  @import './HomePage.scss';
+</style>
