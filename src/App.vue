@@ -1,6 +1,5 @@
 <template>
   <router-view />
-  <!-- <DeleteConfirm /> -->
 </template>
 
 <script>

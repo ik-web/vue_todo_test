@@ -2,7 +2,15 @@ import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 
 import { notesData } from '@/data/notesData';
-import { findItem, getDiplyDataCopy, getNewItemId } from './utils';
+
+// Custom function helpers ---
+import {
+  deleteItemFromData, // deleteItemFromData(data, itemId) => a new data object without a deleted element;
+  findItemInData, // findItemInData(data, itemId) => an item object that is part of the current data;
+  getDeeplyDataCopy, // getDiplyDataCopy(data) => deep copy of the current object
+  getNewItemId // getNewItemId(data) => id of the new element created for the current data;
+} from './utils';
+// ---------------------------
 
 const initialNotes = notesData;
 
@@ -28,9 +36,7 @@ export const useNotesStore = defineStore('notesStore', () => {
   };
 
   const deleteNote = () => {
-    notes.value = notes.value
-    .filter((note) => note.id !== noteIdforDelete.value);
-
+    notes.value = deleteItemFromData(noteIdforDelete.value, notes.value);
     noteIdforDelete.value = null;
   };
 
@@ -39,17 +45,17 @@ export const useNotesStore = defineStore('notesStore', () => {
   };
 
   const setCurrentNote = (id) => {
-    currentNote.value = notes.value.find((note) => note.id === id);
+    currentNote.value = findItemInData(id, notes.value);
     getCurrentNoteTodosCopy();
   };
 
   const getCurrentNoteTodosCopy = () => {
-    currentNoteTodosCopy.value = getDiplyDataCopy(currentNote.value.todos);
+    currentNoteTodosCopy.value = getDeeplyDataCopy(currentNote.value.todos);
   };
 
   const addNewTodo = (newTodoQuery) => {
     const newTodo = {
-      id: getNewItemId(notes.value),
+      id: getNewItemId(currentNoteTodosCopy.value),
       name: newTodoQuery,
       todos: []
     };
@@ -74,7 +80,7 @@ export const useNotesStore = defineStore('notesStore', () => {
   };
 
   const saveTodoQueryChanges = (id, todoQuery) => {
-    const currentTodo = currentNoteTodosCopy.value.find((todo) => todo.id === id);
+    const currentTodo = findItemInData(id, currentNoteTodosCopy.value);
 
     if (todoQuery) {
       currentTodo.name = todoQuery;
@@ -86,16 +92,14 @@ export const useNotesStore = defineStore('notesStore', () => {
   };
 
   const deleteTodoItem = (id) => {
-    currentNoteTodosCopy.value = currentNoteTodosCopy.value
-    .filter((todo) => todo.id !== id);
-
+    currentNoteTodosCopy.value = deleteItemFromData(id, currentNoteTodosCopy.value);
     isCurrentNoteChanged.value = true;
   };
 
   const changeTodoProgress = (id) => {
-    const currentTodo = findItem(id, currentNoteTodosCopy.value);
-    currentTodo.completed = !currentTodo.completed;
+    const currentTodo = findItemInData(id, currentNoteTodosCopy.value);
 
+    currentTodo.completed = !currentTodo.completed;
     isCurrentNoteChanged.value = true;
   };
 

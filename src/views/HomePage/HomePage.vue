@@ -35,8 +35,8 @@
   const closeItemForm = () => isOpenMenu.value = false;
   
   const handleCreateNote = (newNoteQuery) => {
-        addNewNote(newNoteQuery);
-        closeItemForm();
+    addNewNote(newNoteQuery);
+    closeItemForm();
   };
 </script>
 

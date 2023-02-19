@@ -9,14 +9,14 @@ export const getNewItemId = (data) => {
   return initialItemId;
 };
 
-export const deleteItem = (itemId, data) => {
+export const deleteItemFromData = (itemId, data) => {
   return data.filter(item => item.id !== itemId);
 }
 
-export const findItem = (itemId, data) => {
+export const findItemInData = (itemId, data) => {
   return data.find(item => item.id === itemId);
 };
 
-export const getDiplyDataCopy = (data) => {
+export const getDeeplyDataCopy = (data) => {
   return JSON.parse(JSON.stringify(data));
 };

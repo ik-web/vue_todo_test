@@ -1,7 +1,7 @@
 <template>
   <article class="note">
     <app-header class="note__header">
-      <h3 :class="isClipped && 'clipped'">
+      <h3 :class="isClipped ? 'note__name clipped' : 'note__name'">
         {{ props.note.name }}
       </h3>
 
@@ -11,15 +11,18 @@
     </app-header>
     
     <div class="note__todoList">
-      <div class="note__todoListOverlay" @click="$router.push(`/${note.id}`)"></div>
+      <div class="note__todoListOverlay" @click="handleTodoListClick"></div>
       <todo-list :isClipped="isClipped" :todos="props.note.todos" />
     </div>
   </article>
 </template>
 
 <script setup>
+  import { onUnmounted } from 'vue';
+  import { useRouter } from 'vue-router';
   import { useNotesStore } from '@/stores/notesStore';
 
+  const router = useRouter();
   const notesStore = useNotesStore();
   const { setNoteIdforDelete } = notesStore;
 
@@ -36,6 +39,14 @@
   const requestConfirmDelete = () => {
     setNoteIdforDelete(props.note.id);
   };
+
+  const handleTodoListClick = () => {
+    router.push(`/${props.note.id}`)
+  };
+
+  onUnmounted(() => {
+    setNoteIdforDelete(null);
+  });
 </script>
 
 <style lang="scss" scoped>

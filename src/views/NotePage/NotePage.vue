@@ -1,11 +1,11 @@
 <template>
   <delete-confirm v-if="noteIdforDelete" />
   <app-header>
-    <h1>{{ currentNoteName }}</h1>
+    <h1 class="note__name">{{ currentNoteName }}</h1>
 
     <app-button 
       class="note__returnButton" 
-      @click="router.push('/')"
+      @click="hundleGoBackButtonClick"
     >Go back</app-button>
   </app-header>
     
@@ -73,6 +73,10 @@
   const requestConfirmDelete = () => {
     setNoteIdforDelete(currentNoteId);
   };
+
+  const hundleGoBackButtonClick = () => {
+    router.push('/');
+  };
   
   onMounted(() => {
     setCurrentNote(currentNoteId);
@@ -80,49 +84,10 @@
 
   onUnmounted(() => {
     resetNoteChanges();
-  })
+    setNoteIdforDelete(null);
+  });
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/utils/vars';
-@import '@/styles/utils/mixins';
-
-.note {
-
-  &__returnButton {
-    align-self: start;
-  }
-
-  &__section {
-    display: grid;
-    grid-template-rows: auto auto 1fr auto;
-    gap: 20px;
-  
-    max-width: 800px;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-  }
-
-  &__buttons {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    justify-items: center;
-    gap: 20px;
-    
-    margin: 60px 0 20px;
-
-    & button:first-of-type {
-      justify-self: start;
-    }
-
-    & button:last-of-type {
-      justify-self: end;
-    }
-    
-    @include mobile {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-}
+  @import './NotePage.scss';
 </style>

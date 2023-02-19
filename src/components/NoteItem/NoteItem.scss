@@ -18,10 +18,14 @@
     box-shadow: none;
   }
 
+  &__name {
+    word-break: break-all;
+  }
+
   &__button {
     @include icon_button;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     padding: 0;
   }
 
