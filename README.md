@@ -7,13 +7,14 @@
   <img src="https://img.shields.io/badge/-css-violet" alt="scss">
   <img src="https://img.shields.io/badge/-javascript-yellow" alt="javascript">
   <img src="https://img.shields.io/badge/-vue-seagreen" alt="vue">
+  <img src="https://img.shields.io/badge/-pinia-yellow" alt="pinia">
 </p>
 
-<!-- <p align="center">
-  <a href="https://ik-web.github.io/keep-in-touch/">
+<p align="center">
+  <a href="https://ik-web.github.io/vue_todo_test/">
     >> DEMO LINK <<
   </a> 
-</p> -->
+</p>
 
 ## Description:
 
