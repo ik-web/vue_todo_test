@@ -13,6 +13,7 @@
 
   &__main {
     background: url('@/assets/img/note_bg.webp') center / cover no-repeat;
+    background-attachment: fixed;
 
     @include tablet {
       background: $color_secondary;

@@ -27,5 +27,6 @@
 
   &__main {
     background: url('@/assets/img/home_bg.webp') center / cover no-repeat;
+    background-attachment: fixed;
   }
 }
